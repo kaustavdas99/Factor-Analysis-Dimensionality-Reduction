@@ -1,6 +1,6 @@
 # Immunisation Index using Factor Analysis
 
-This repository provides an R-based statistical workflow to construct a composite **Childhood Immunisation Performance Index** using **Factor Analysis**. The approach combines multiple birth-dose vaccination indicators into a single latent index representing district-level immunisation performance.
+This repository provides an R based statistical workflow to construct a composite **Childhood Immunisation Performance Index** using **Factor Analysis**. The approach combines multiple birth-dose vaccination indicators into a single latent index representing district-level immunisation performance.
 
 Public health datasets often contain several related indicators that reflect different aspects of healthcare delivery. Analysing these indicators separately may obscure broader patterns. This workflow applies dimensionality reduction techniques to summarise correlated immunisation indicators into a single interpretable index that allows systematic comparison across districts and helps identify regions where immunisation coverage may require policy attention.
 
