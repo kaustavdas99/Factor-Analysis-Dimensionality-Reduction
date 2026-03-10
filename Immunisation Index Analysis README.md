@@ -1,5 +1,6 @@
 ## Statistical Summary of Immunisation Index Analysis
 
+
 | Analysis | Statistic | Value | Interpretation |
 |--------|--------|--------|--------|
 | Kaiser–Meyer–Olkin (KMO) | Sampling Adequacy | 0.604 | Acceptable adequacy; variables share sufficient common variance for factor analysis. |
