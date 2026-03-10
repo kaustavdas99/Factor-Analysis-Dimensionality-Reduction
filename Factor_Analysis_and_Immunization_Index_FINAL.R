@@ -1,5 +1,5 @@
 ############################################################
-# 0. Libraries
+# Libraries
 ############################################################
 library(psych)
 library(readxl)
@@ -11,7 +11,7 @@ library(stringr)
 library(writexl)
 
 ############################################################
-# 1. Load & prepare data
+# Load & prepare data
 ############################################################
 df <- read_excel("Child_Immunisation_FINAL.xlsx") %>%
   select(
@@ -27,7 +27,7 @@ X <- df %>%
          `Percentage of Hepatitis-B0 (Birth Dose)`)
 
 ############################################################
-# 2. VALIDATION: Factor suitability
+# VALIDATION: Factor suitability
 ############################################################
 print(KMO(X)$MSA)
 X <- scale(X)
@@ -36,7 +36,7 @@ print(cortest.bartlett(cor(X), n = nrow(X)))
 print(cor(X))
 
 ############################################################
-# 3. FACTOR ANALYSIS (GLOBAL MODEL)
+# FACTOR ANALYSIS (GLOBAL MODEL)
 ############################################################
 fa_res <- fa(
   X,
@@ -52,7 +52,7 @@ print(fa_res$Vaccounted)
 df$Immunisation_Index <- as.numeric(fa_res$scores)
 
 ############################################################
-# 4. DISTRICT & MONTH AGGREGATION
+# DISTRICT & MONTH AGGREGATION
 ############################################################
 district_index <- df %>%
   group_by(District) %>%
@@ -65,7 +65,7 @@ month_index <- df %>%
             .groups = "drop")
 
 ############################################################
-# 5. RISK CLASSIFICATION (ONE LOGIC ONLY – QUANTILES)
+# RISK CLASSIFICATION (ONE LOGIC ONLY – QUANTILES)
 ############################################################
 district_index <- district_index %>%
   mutate(
@@ -78,7 +78,7 @@ district_index <- district_index %>%
   )
 
 ############################################################
-# 6. DESCRIPTIVE DIAGNOSTICS (NOT INFERENTIAL)
+# DESCRIPTIVE DIAGNOSTICS (NOT INFERENTIAL)
 ############################################################
 risk_summary <- district_index %>%
   group_by(Risk) %>%
@@ -94,7 +94,7 @@ risk_summary <- district_index %>%
 print(risk_summary)
 
 ############################################################
-# 7. DISTRICT BAR PLOT
+# DISTRICT BAR PLOT
 ############################################################
 district_index$Risk <- factor(
   district_index$Risk,
@@ -155,7 +155,7 @@ df_agg <- df_filled %>%
 X <- df_agg %>% select(starts_with("Percentage"))
 
 # Run factor analysis (1 factor)
-fa_res <- fa(X, nfactors = 1, rotate = "none", fm = "ml")  # fm = "ml" or "pa"
+fa_res <- fa(X, nfactors = 1, rotate = "none", fm = "ml")
 
 # Extract factor scores as total immunisation index
 df_agg$Immunisation_Index <- fa_res$scores
@@ -226,7 +226,7 @@ final_index_wide <- index_list %>%
 print(final_index_wide)
  write.csv(final_index_wide, "Final_Index.csv")
 
-#######################################################################
+#############################################################
 
 library(dplyr)
 library(ggplot2)
@@ -286,10 +286,9 @@ library(writexl)
 write_xlsx(district_risk, "District_Cumulative_Immunisation_Risk.xlsx")
 
 
-#################################################################################################
+###############################################################
 #Rural Urban Public Private Together
-#################################################################################################
-
+###############################################################
 library(ggplot2)
 library(dplyr)
 library(tidyr)
@@ -315,7 +314,7 @@ ggplot(df_plot, aes(x = reorder(District, Index), y = Index, fill = Category)) +
   geom_bar(stat = "identity", position = position_dodge(width = 0.8)) +
   geom_text(aes(label = round(Index, 2)),
             position = position_dodge(width = 0.8),
-            hjust = ifelse(df_plot$Index >= 0, -0.1, 1.1), # outside bars: right for positive, left for negative
+            hjust = ifelse(df_plot$Index >= 0, -0.1, 1.1), 
             size = 3) +
   coord_flip() +
   scale_fill_manual(values = c("Private_Facility" = "#e41a1c",
@@ -352,9 +351,9 @@ df_long <- df %>%
     values_to = "Index"
   )
 
-##################################################################################################
-#Separte Plots 
-##################################################################################################
+###############################################################
+#Separte Plots ######
+###############################################################
 
 # ============================================================
 # District-wise Average Immunisation Index by Category
@@ -362,7 +361,7 @@ df_long <- df %>%
 # ============================================================
 
 # -----------------------------
-# 1. Load required libraries
+# Load required libraries
 # -----------------------------
 library(ggplot2)
 library(dplyr)
@@ -370,7 +369,7 @@ library(tidyr)
 library(readr)
 
 # -----------------------------
-# 2. Read the dataset
+# Read the dataset
 # -----------------------------
 
 df <- read.csv("Child_Immunization_Index_FA_Category.csv")
@@ -383,7 +382,7 @@ df_long <- df %>%
   )
 
 # -----------------------------
-# 3. District-wise average across ALL months
+# District-wise average across ALL months
 # -----------------------------
 df_plot <- df_long %>%
   group_by(District, Category) %>%
@@ -393,7 +392,7 @@ df_plot <- df_long %>%
   )
 
 # ============================================================
-# PLOT 1: Rural vs Urban (Average Index)
+# Rural vs Urban (Average Index)
 # ============================================================
 
 df_rural_urban <- df_plot %>%
@@ -432,7 +431,7 @@ ggplot(df_rural_urban,
   )
 
 # ============================================================
-# PLOT 2: Public vs Private Facility (Average Index)
+# Public vs Private Facility (Average Index)
 # ============================================================
 
 df_pub_priv <- df_plot %>%
@@ -554,4 +553,5 @@ risk_test <- kruskal.test(Index ~ Risk, data = district_index)
 print(risk_test)
 
 ############################################################
+
 
