@@ -118,8 +118,6 @@ ggplot(district_index,
   ) +
   theme_minimal(base_size = 14)
 
-
-
 ###################################
 # CUMMULATIVE INDEX VALUES AFTER FA
 ###################################
@@ -256,7 +254,7 @@ ggplot(district_risk, aes(x = reorder(District, Average_Index),
                           y = Average_Index, fill = Risk)) +
   geom_bar(stat = "identity") +
   geom_text(aes(label = round(Average_Index, 2),
-                hjust = ifelse(Average_Index >= 0, -0.1, 1.1)),  # Right for positive, left for negative
+                hjust = ifelse(Average_Index >= 0, -0.1, 1.1)), 
             size = 4, color = "black") +
   coord_flip() +
   scale_fill_manual(values = c("High Risk" = "red",
@@ -275,7 +273,7 @@ ggplot(district_risk, aes(x = reorder(District, Average_Index),
     plot.title = element_text(hjust = 0.5),      
     plot.subtitle = element_text(hjust = 0.5)
   ) +
-  expand_limits(y = c(min(district_risk$Average_Index) * 1.1,  # include negative bars
+  expand_limits(y = c(min(district_risk$Average_Index) * 1.1, 
                       max(district_risk$Average_Index) * 1.1))
 
 
@@ -288,9 +286,9 @@ library(writexl)
 write_xlsx(district_risk, "District_Cumulative_Immunisation_Risk.xlsx")
 
 
-#############################################################################################################
+#################################################################################################
 #Rural Urban Public Private Together
-############################################################################################################
+#################################################################################################
 
 library(ggplot2)
 library(dplyr)
@@ -312,7 +310,6 @@ df_plot <- df_long %>%
     .groups = "drop"
   )
 
-  
 # Plot
 ggplot(df_plot, aes(x = reorder(District, Index), y = Index, fill = Category)) +
   geom_bar(stat = "identity", position = position_dodge(width = 0.8)) +
@@ -556,5 +553,5 @@ cat("\n===== KRUSKAL-WALLIS TEST (Risk Groups) =====\n")
 risk_test <- kruskal.test(Index ~ Risk, data = district_index)
 print(risk_test)
 
-#####################################################################################################
+############################################################
 
