@@ -1,6 +1,5 @@
 ############################################################
 # Childhood Immunisation Index using Factor Analysis
-# Author: Kaustav Das
 # Description:
 # This script constructs a composite childhood immunisation
 # performance index using factor analysis based on
