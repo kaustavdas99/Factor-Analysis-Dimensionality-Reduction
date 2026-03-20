@@ -1,0 +1,1 @@
+R-based statistical framework for constructing a composite child immunisation index using factor analysis, with validation tests (KMO, Bartlett), risk classification, and comparative analysis across rural, urban, and healthcare facility categories.
