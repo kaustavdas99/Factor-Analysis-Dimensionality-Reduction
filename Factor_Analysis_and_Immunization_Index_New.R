@@ -355,22 +355,16 @@ df_long <- df %>%
 #Separte Plots
 ###############################################################
 
-# ============================================================
 # District-wise Average Immunisation Index by Category
 # (Rural / Urban / Public / Private)
-# ============================================================
 
-# -----------------------------
 # Load required libraries
-# -----------------------------
 library(ggplot2)
 library(dplyr)
 library(tidyr)
 library(readr)
 
-# -----------------------------
 # Read the dataset
-# -----------------------------
 
 df <- read.csv("Child_Immunization_Index_FA_Category.csv")
 
@@ -381,9 +375,7 @@ df_long <- df %>%
     values_to = "Index"
   )
 
-# -----------------------------
 # District-wise average across ALL months
-# -----------------------------
 df_plot <- df_long %>%
   group_by(District, Category) %>%
   summarise(
@@ -391,9 +383,7 @@ df_plot <- df_long %>%
     .groups = "drop"
   )
 
-# ============================================================
 # Rural vs Urban (Average Index)
-# ============================================================
 
 df_rural_urban <- df_plot %>%
   filter(Category %in% c("Rural", "Urban"))
@@ -430,9 +420,7 @@ ggplot(df_rural_urban,
     plot.subtitle = element_text(hjust = 0.5)
   )
 
-# ============================================================
 # Public vs Private Facility (Average Index)
-# ============================================================
 
 df_pub_priv <- df_plot %>%
   filter(Category %in% c("Public_Facility", "Private_Facility"))
